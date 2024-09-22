@@ -11,7 +11,10 @@ class PostSerializer(serializers.ModelSerializer):
     profile_image = serializers.ReadOnlyField(
         source='owner.profile.image.url')
     like_id = serializers.SerializerMethodField()
-    saved_post_id = serializers.SerializerMethodField() 
+    savedpost_id = serializers.SerializerMethodField()
+    likes_count = serializers.ReadOnlyField()
+    comments_count = serializers.ReadOnlyField()
+    savedposts_count = serializers.ReadOnlyField()
 
     def validate_image(self, value):
         """
@@ -54,7 +57,7 @@ class PostSerializer(serializers.ModelSerializer):
             return like.id if like else None
         return None
 
-    def get_saved_post_id(self, obj):
+    def get_savedpost_id(self, obj):
         """
         Retrieve the ID of the saved post for the current user.
         Returns the saved post ID if the user has saved the post,
@@ -62,10 +65,10 @@ class PostSerializer(serializers.ModelSerializer):
         """
         user = self.context['request'].user
         if user.is_authenticated:
-            saved_post = SavedPost.objects.filter(
+            savedpost = SavedPost.objects.filter(
                 owner=user, post=obj
             ).first()
-            return saved_post.id if saved_post else None
+            return savedpost.id if savedpost else None
         return None        
 
     class Meta:
@@ -75,5 +78,6 @@ class PostSerializer(serializers.ModelSerializer):
             'profile_image', 'created_at', 'updated_at',
             'title', 'content', 'image', 'place', 
             'region', 'image_filter', 'like_id',
-            'saved_post_id'
+            'savedpost_id', 'likes_count', 'comments_count',
+            'savedposts_count'
         ]

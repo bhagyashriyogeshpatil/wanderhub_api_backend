@@ -21,7 +21,14 @@ class PostList(generics.ListCreateAPIView):
         savedposts_count=Count('savedposts', distinct=True) 
     ).order_by('-created_at')
     filter_backends = [
-        filters.OrderingFilter
+        filters.OrderingFilter,
+        filters.SearchFilter,
+    ]
+    search_fields = [
+        'owner__username',
+        'title',
+        'place',
+        'region',
     ]
     ordering_fields = [
         'likes_count',

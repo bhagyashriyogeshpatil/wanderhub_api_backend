@@ -1,5 +1,6 @@
 from rest_framework import serializers
 from .models import Comment
+from commentreactions.models import CommentReaction
 
 
 class CommentSerializer(serializers.ModelSerializer):
@@ -11,17 +12,30 @@ class CommentSerializer(serializers.ModelSerializer):
     profile_id = serializers.ReadOnlyField(source='owner.profile.id')
     profile_image = serializers.ReadOnlyField(
         source='owner.profile.image.url')
+    commentreaction_id = serializers.SerializerMethodField()
 
     def get_is_owner(self, obj):
         request = self.context['request']
         return request.user == obj.owner
+
+    def get_commentreaction_id(self, obj):
+        """
+        Return the ID of the user's reaction to the comment, if any.
+        """
+        user = self.context['request'].user
+        if user.is_authenticated:
+            commentreaction = CommentReaction.objects.filter(
+                owner=user, comment=obj
+            ).first()
+            return commentreaction.id if commentreaction else None
+        return None
 
     class Meta:
         model = Comment
         fields = [
             'id', 'owner', 'is_owner', 'profile_id',
             'profile_image', 'post', 'created_at',
-            'updated_at', 'content'
+            'updated_at', 'content', 'commentreaction_id'
         ]
 
 

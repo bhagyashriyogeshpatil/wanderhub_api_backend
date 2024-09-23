@@ -20,7 +20,7 @@ class SavedPost(models.Model):
     owner = models.ForeignKey(User, on_delete=models.CASCADE)
     post = models.ForeignKey(
         Post,
-        related_name='saved_posts',
+        related_name='savedposts',
         on_delete=models.CASCADE
     )
     created_at = models.DateTimeField(auto_now_add=True)

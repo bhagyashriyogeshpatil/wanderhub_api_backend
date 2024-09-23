@@ -27,8 +27,13 @@ class PostList(generics.ListCreateAPIView):
         DjangoFilterBackend,
     ]
     filterset_fields = [
+        # Filter posts by profiles that the current user follows
         'owner__followed__owner__profile',
+        # Filter by profiles of users who liked the post
         'likes__owner__profile',
+        # Filter posts a user has saved
+        'savedposts__owner__profile',
+        # Filter by post owner's profile
         'owner__profile',
     ]
     search_fields = [
@@ -44,7 +49,6 @@ class PostList(generics.ListCreateAPIView):
         'likes__created_at',
         'savedposts__created_at',
         ]
-
 
     def perform_create(self, serializer):
         serializer.save(owner=self.request.user)

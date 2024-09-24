@@ -63,7 +63,7 @@ SECRET_KEY = os.getenv('SECRET_KEY')
 DEBUG = 'DEV' in os.environ
 
 ALLOWED_HOSTS = ['8000-bhagyashriy-wanderhubap-zda90yavtn9.ws.codeinstitute-ide.net',
-                'localhost', 'https://wanderhub-api-backend-8af792a9ebf9.herokuapp.com']
+                'localhost', 'wanderhub-api-backend-8af792a9ebf9.herokuapp.com']
 
 CSRF_TRUSTED_ORIGINS = [
     'https://8000-bhagyashriy-wanderhubap-zda90yavtn9.ws.codeinstitute-ide.net',

@@ -17,8 +17,23 @@ The project is developed as a Portfolio Project 5 (Advanced Front End / React) f
     - [Agile Planning](#agile-planning)
       - [User Stories and Management](#user-stories-and-management)
       - [Milestones Overview](#milestones-overview)
+- [User Experience Design](#user-experience-design)
+  - [Strategy](#strategy)
+  - [Site Goals](#site-goals)
+  - [Scope](#scope)
+  - [Structure](#structure)
+  - [Skeleton](#skeleton)
+  - [Surface](#surface)
 - [The Structure Plane](#the-structure-plane)
   - [Features](#features)
+    - [Homepage](#homepage)
+    - [Posts](#posts)
+    - [Profiles](#profiles)
+    - [Likes](#likes)
+    - [Followers](#followers)
+    - [Saved Posts](#saved_posts)
+    - [Comments](#comments)
+    - [Comment Reactions](#comment_reactions)
 
 
 ---
@@ -27,6 +42,54 @@ The project is developed as a Portfolio Project 5 (Advanced Front End / React) f
 Wander Hub is a social media platform where travelers can share their trips, discover new places, and connect with other travel lovers. The platform utilizes Django Rest Framework for the back-end and React for the front-end, ensuring a smooth user experience for creating, browsing, and interacting with travel content. This API provides a backend database (models and logic) to allow the frontend React application to perform CRUD operations. Users can easily create posts with stories and photos, interact by liking, commenting, and following others, and save their favorite posts for future reference.
 
 Wander Hub has a user-friendly interface that makes it easy to use. It includes features like user login, the ability to create, update, and delete posts, and options to search and filter travel content. The platform is designed to work well on all devices, ensuring a smooth experience for everyone.
+
+*<span style="color: blue;">[Back to Content](#table-of-contents)</span>* 
+
+## User Experience Design
+
+### Strategy
+Wander Hub’s design focuses on creating a smooth, easy-to-use platform for travellers to share trips and discover new places. Using Agile methods, the project is developed in small steps. The goal is to meet user needs, make the platform mobile-friendly, and ensure a great experience when creating posts, exploring content, and interacting with others.
+
+*<span style="color: blue;">[Back to Content](#table-of-contents)</span>* 
+
+### Site Goals
+Wander Hub aims to bring together travellers who want to share their adventures and discover new destinations. Whether it’s a quick weekend getaway or an international trip, users can post travel stories, share photos, and write about their experiences.
+
+**Key Goals:**
+- **Easy User Authentication:** Simplified sign-up and login with just a username and password, giving users access to a personalized dashboard.
+- **CRUD Functionality for Travel Posts:** Registered users can create, view, edit, and delete their posts, giving them control over their content.
+- **Engagement and Interaction:** Users can like and comment on posts, helping to build a community. They can also follow others to see their updates and manage their comments by creating, editing, or deleting them.
+- **Comment Reactions:**  Users can react to comments (e.g., like or appreciate), enhancing interaction and feedback within the community.
+- **Saved Posts for Future Reference:** Users can save favorite travel stories and destinations for easy access later.
+- **Profile Management:** Logged-in users can update their profile details (bio, username, password, avatar), which are visible on all pages.
+- **Advanced Search and Filter Options:** All users including those not logged in can explore content using search and filter features by title, username, region, or place.
+- **Responsive Design:** The platform is optimized for all devices, ensuring a consistent user experience across desktops, tablets, and smartphones.
+
+*<span style="color: blue;">[Back to Content](#table-of-contents)</span>* 
+
+### Scope
+The design of Wander Hub is centred on key features and accessibility. The front-end is responsive and built with React, while the back-end uses Django Rest Framework. Users can create, manage, and interact with travel posts, while features like authentication, liking, commenting, and following others enhance engagement. The interface is designed to be simple and easy to use, with continuous adjustments based on testing and feedback to improve the overall experience.
+
+*<span style="color: blue;">[Back to Content](#table-of-contents)</span>* 
+
+### Structure
+Wander Hub’s development is organized with clear milestones and user stories:
+- **Milestones:** These cover major tasks, like setting up the backend, building the frontend, and implementing features such as login and post management, helping the project stay on track.
+- **User Stories:** Tasks are broken down into smaller steps, focusing on features like creating and editing posts, managing profiles, and enabling users to comment and like posts. Priorities are set to focus on the most important features first.
+
+This approach ensures the platform is built with the user’s needs in mind.
+
+*<span style="color: blue;">[Back to Content](#table-of-contents)</span>* 
+
+### Skeleton
+The design is planned using wireframes and ERDs that show how the database is organized:
+- **Wireframes:** Visual sketches of important pages, like the homepage and user profiles, were created to ensure the layout is clear and easy to navigate.
+- **Entity-Relationship Diagram (ERD):** These diagram map out how data is structured, showing how users, posts, comments, and followers relate to each other. This ensures everything works smoothly behind the scenes.
+
+*<span style="color: blue;">[Back to Content](#table-of-contents)</span>* 
+
+### Surface
+Wander Hub features a clean and modern design that is both attractive and easy to use. It uses simple layouts, clear fonts, and consistent icons to make navigation straightforward. The responsive design ensures the platform looks great and works well on any device, whether it’s a desktop, tablet, or smartphone.
 
 *<span style="color: blue;">[Back to Content](#table-of-contents)</span>* 
 
@@ -93,6 +156,7 @@ The development of Wander Hub is organized into six key milestones, each focusin
   - User Story 9: Maintain Logged-In Status with Token Refresh
   - User Story 10: Conditional Rendering for Authentication Options
   - User Story 11: Display User Avatar
+  - User Story 31: View Other Users' Profiles
   - User Story 34: Edit Profile Details
   - User Story 35: Update Username and Password
   - User Story 37: Use Default Profile Image
@@ -124,7 +188,6 @@ The development of Wander Hub is organized into six key milestones, each focusin
 
 **6. Extended User Features**
 - The final milestone introduces advanced features to enhance the overall user experience.
-  - User Story 31: View Other Users' Profiles
   - User Story 32: View User Statistics
   - User Story 33: View All Posts by a Specific User
   - User Story 36: View Most Followed Profiles

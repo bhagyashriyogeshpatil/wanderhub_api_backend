@@ -189,6 +189,8 @@ All features have been implemented with user stories in mind.  For a detailed ov
 
 - Users can edit or delete their posts only when they are logged in. Logged-in users can also see the posts they've liked and saved. Everyone can view how many likes, comments, and saves each post has.
 
+*<span style="color: blue;">[Back to Content](#table-of-contents)</span>* 
+
 #### Profiles
 - *As a user*, I want to view other users profiles so that I can see their posts and learn more about them. (User Story#31)
 - *As a user*, I want to view detailed statistics about a specific user, including their bio and activity stats (such as number of posts, followers, and following), so that I can learn more about them. (User Story#32)
@@ -223,3 +225,126 @@ All features have been implemented with user stories in mind.  For a detailed ov
 ![Profiles_DetailView](documentation/docs_images/api_profiles_detail_view.png)
 
 - If the user has not uploaded a profile picture, a default profile image is assigned to the image field. This ensures that every profile has a visual identifier, even without a custom avatar.
+
+*<span style="color: blue;">[Back to Content](#table-of-contents)</span>* 
+
+#### Likes 
+- *As a logged-in user*, I can like other users' posts so that I can show appreciation for content and its authors. (User Story#18)
+- *As a logged-in user*, I want to unlike a post so that I can remove my like if I no longer want to support it. (User Story#19)
+- You can access the likes list view here: https://wanderhub-api-backend-8af792a9ebf9.herokuapp.com/likes/ 
+  - **Endpoint:** `/likes/`
+  - **Methods Used:**
+    - `GET`: Retrieves a list of likes on posts.
+    - `POST`: Likes a post.
+
+![Like_Listview](documentation/docs_images/api_likes_list_view.png)
+
+- The `unique_together` Meta class makes sure that a user can only like a post once. This keeps the like system organized and helps users easily see all the posts they have liked in one place.
+- Users can unlike posts by returning to a post they have previously liked, either from the post list view or the post detail view on the front end.
+  - **Endpoint for Deleting Likes:** `/likes/int:pk/`
+  - **Methods Used:**
+    - `GET`: Retrieves the details of the likes.
+    - `DELETE`: Unlikes a post.
+- This feature helps users manage their likes easily, making it simple to engage with content on the platform.
+
+*<span style="color: blue;">[Back to Content](#table-of-contents)</span>* 
+
+#### Followers
+- *As a logged-in user*, I want to follow other users so that I can view their posts in my feed and stay updated with their latest updates. (User Story#24)
+- *As a logged-in user*, I want to unfollow other users so that I can remove their posts from my feed. (User Story#25)
+- You can access the followers list view here: https://wanderhub-api-backend-8af792a9ebf9.herokuapp.com/followers/
+  - **Endpoint:** `/followers/`
+  - **Methods Used:**
+    - `GET`: Retrieves a list of followers.
+    - `POST`: Allows a user to follow another user.
+- Users can easily follow or unfollow profiles they like by using the side panel that shows popular profiles or by visiting individual user profiles.
+- To manage their feed, users can unfollow other users by accessing the respective profile.
+  - **Endpoint for Unfollowing Users:** `/followers/int:pk/`
+  - **Methods Used:**
+    - `GET`: Retrieves the details of the user's followers.
+    - `DELETE`: Unfollows a user.
+
+![Followers_Detailview](documentation/docs_images/api_followers_detail_view.png)
+
+- The `unique_together` Meta class makes sure that users cannot follow the same user multiple times, preventing duplicate entries in the database and maintaining a clean, user-friendly experience.
+- This feature helps users keep up with their favorite content creators and manage their feed easily, making it simple to engage with the content they enjoy on the platform.
+
+*<span style="color: blue;">[Back to Content](#table-of-contents)</span>* 
+
+#### Saved Posts
+- *As a logged-in user*, I want to mark posts as saved so that I can save and easily find them later. (User Story#26)
+- You can access the saved posts list view here: https://wanderhub-api-backend-8af792a9ebf9.herokuapp.com/savedposts/ 
+  - **Endpoint:** `/savedposts/`
+  - **Methods Used:**
+    - `GET`: Retrieves a list of saved posts.
+    - `POST`: Allows a user to save a specific post.
+
+![Savedposts_ListView](documentation/docs_images/api_savedposts_list_view.png)
+
+- The `unique_together` Meta class prevents users from saving the same post multiple times, keeping their saved posts organized. Users can quickly access all their saved posts, allowing them to easily return to content they enjoy.
+- *As a logged-in user*, I want to remove posts from my saved list so that they are no longer displayed on my saved posts page. (User Story#27)
+- Users can remove saved posts by returning to a previously saved post, whether from the post list view or the post detail view on the front end.
+- The endpoint for deleting a saved post is as follows:
+  - **Endpoint for Removing Saved Posts:** `/savedposts/int:pk/`
+  - **Methods Used:**
+    - `GET`: Retrieves details about the saved post.
+    - `DELETE`: Removes the saved post from the specified post.
+- This saved posts feature enhances user engagement by allowing easy access to favorite posts and allowing users to manage their saved content effectively.
+
+*<span style="color: blue;">[Back to Content](#table-of-contents)</span>* 
+
+#### Comments
+- *As a logged-in user*, I want to add comments to posts so that I can share my thoughts and engage with the community. (User Story#20)
+- *As a user*, I want to read comments on posts so that I can see what other users think about them. (User Story#21)
+- You can access the comments list view here: https://wanderhub-api-backend-8af792a9ebf9.herokuapp.com/comments/
+  - **Endpoint:** `/comments/`
+  - **Methods Used:**
+    - `GET`: Retrieves a list of comments.
+    - `POST`: Allows a user to create a new comment.
+
+![API_Comments_Listview](documentation/docs_images/api_comments_list_view.png)
+- Additional fields added with the help of a serializer to the JSON data include:
+  - is_owner
+  - profile_id
+  - profile_image
+  - commentreaction_id
+  - commentreactions_count
+  - created_at
+  - updated_at
+- The `naturaltime` format is implemented for the `created_at` and `updated_at` fields, providing users with a human-readable time format.
+- Filtering is implemented to ensure that comments are displayed under the correct post on the front end. Comments are ordered in descending order, so the newest comments appear at the top.
+- *As a logged-in user who owns a comment*, I want to be able to edit my comment so that I can fix or update it. (User Story#22)
+- *As the owner of a comment*, I want to be able to delete my comment so that I can remove comments I no longer want to be posted. (User Story#23)
+  - **Endpoint for Individual Comments:** `/comments/int:pk/`
+  - **Methods Used:**
+    - `GET`: Retrieves details of a specific comment.
+    - `PUT`: Edits or updates an existing comment.
+    - `DELETE`: Deletes the specified comment.
+
+![API_Comments_DetailView](documentation/docs_images/api_comments_detail_view.png)
+
+- Users can only edit or delete their comments when they are logged in. The `commentreaction_count` field shows how many reactions a comment has received, encouraging interaction in the community. 
+- This feature boosts user engagement by allowing conversations and discussions about posts, helping create an active community.
+
+*<span style="color: blue;">[Back to Content](#table-of-contents)</span>* 
+
+#### Comment Reactions
+- *As a logged-in user*, I can like other users comments by clicking a "thumbs-up" icon so that I can show appreciation for their opinions. (User Story#28)
+- You can access the comment reactions list view here: https://wanderhub-api-backend-8af792a9ebf9.herokuapp.com/commentreactions/
+  - **Endpoint:** `/commentreactions/`
+  - **Methods Used:**
+    - `GET`: Retrieves a list of comment reactions.
+    - `POST`: Allows a user to react to a specific comment.
+
+![Comment_ReactionView](documentation/docs_images/api_comment_reaction_view.png)
+
+- The `unique_together` Meta class ensures that a user cannot react to the same comment multiple times, maintaining data integrity.
+- Users can remove their reaction from a comment by navigating back to the comment they previously reacted to. 
+- The endpoint for deleting a comment reaction is:
+  - **Endpoint for Individual Comment Reactions:** `/commentreactions/int:pk/`
+  - **Methods Used:**
+    - `GET`: Retrieves details of specific comment reactions.
+    - `DELETE`: Removes a specific reaction from a comment.
+- This feature encourages community engagement by allowing users to express their support for comments they find valuable, enhancing the interactive experience on the platform.
+
+*<span style="color: blue;">[Back to Content](#table-of-contents)</span>* 

@@ -17,7 +17,8 @@ The project is developed as a Portfolio Project 5 (Advanced Front End / React) f
     - [Agile Planning](#agile-planning)
       - [User Stories and Management](#user-stories-and-management)
       - [Milestones Overview](#milestones-overview)
-
+- [The Structure Plane](#the-structure-plane)
+  - [Features](#features)
 
 
 ---
@@ -131,3 +132,94 @@ The development of Wander Hub is organized into six key milestones, each focusin
   - User Story 39: Infinite Scroll for Comments
 
 *<span style="color: blue;">[Back to Content](#table-of-contents)</span>* 
+
+## The Structure Plane
+
+### Features
+All features have been implemented with user stories in mind.  For a detailed overview of the fields included in each model for the API, visit the [Database Design](#database-design) section.
+
+#### Homepage
+- When users click the deployed link for the Wander Hub API, they are greeted with a welcome message.
+
+![API_Homepage](documentation/docs_images/api_homepage.png)
+
+*<span style="color: blue;">[Back to Content](#table-of-contents)</span>* 
+
+#### Posts
+- *As a logged-in user*, I want to create posts so that I can share my travel experience with the world! (User Story#12)
+- *As a user*, I want to see a list of the most recent posts so that I can browse and stay updated with the latest content. (User Story#16)
+- Posts are the main feature of the application, and all other functionalities are designed in relation to posts.
+- You can access the posts list view here: https://wanderhub-api-backend-8af792a9ebf9.herokuapp.com/posts/
+
+  - **Endpoint:** `/posts/`
+  - **Methods Used:**
+    - `GET` : Retrieves a list of posts.
+    - `POST`: used to create posts
+        
+![API_Posts_View](documentation/docs_images/api_posts_list_view.png)
+- With the help of serializers, the following additional fields have been added to the JSON data:
+  - is_owner
+  - profile_id
+  - profile_image
+- To see how people engage with each post, the following fields have been included:
+  - like_id
+  - savedpost_id
+  - likes_count
+  - comments_count
+  - savedposts_count
+- Filtering fields have been implemented to allow users to search and filter posts effectively.
+- *As a user*, I want to search for posts using keywords so that I can find and learn more about posts and profiles that interest me. (User Story#17)
+- The filtering options include:
+  - Text search based on `owner_username`, `title`, `place`, and `region`.
+  - Filter posts saved by the user to display their list of saved posts.
+  - Filter posts liked by the user to see liked posts.
+  - View posts from users the logged-in user is following.
+  - View posts created by the user to see a list of their own posts.
+  - Order the posts list by `likes_count`, `comments_count`, `savedposts_count`, `likes_created_at`, and `savedposts__created_at`
+- *As a logged-in user*, I want to be able to edit my own posts so that I can make changes or updates after they are created. (User Story#14)
+- *As a logged-in user*, I want to be able to delete my own posts so that I can remove any posts I no longer want to share.
+- *As a user*, I want to click on a post to see its details so that I can learn more about it. (User Story#13)
+  - **Endpoint:** `/posts/int:pk/`
+  - **Methods Used:**
+    - `GET`: Retrieves a specific post.
+    - `PUT`: Edits/updates a post.
+    - `DELETE`: Deletes a post.
+
+![API_Posts_Detail_View](documentation/docs_images/api_posts_detail_view.png)
+
+- Users can edit or delete their posts only when they are logged in. Logged-in users can also see the posts they've liked and saved. Everyone can view how many likes, comments, and saves each post has.
+
+#### Profiles
+- *As a user*, I want to view other users profiles so that I can see their posts and learn more about them. (User Story#31)
+- *As a user*, I want to view detailed statistics about a specific user, including their bio and activity stats (such as number of posts, followers, and following), so that I can learn more about them. (User Story#32)
+- You can access the profiles list view here: https://wanderhub-api-backend-8af792a9ebf9.herokuapp.com/profiles/
+  - **Endpoint:** `/profiles/`
+  - **Methods Used:**
+    - `GET`: Retrieves a list of user profiles.
+
+![Profiles_ListView](documentation/docs_images/api_profiles_list_view.png)
+
+- The following fields are added through serializers to enhance the profile data in JSON format:
+  - is_owner
+  - following_id
+  - posts_count
+  - followers_count
+  - following_count
+- Profile creation is automatically handled by the system using Django's signal system. When a new `User` is created, a `Profile` is automatically generated for that user.
+- When a user signs up, the `post_save` signal triggers a function that creates a profile for them. No manual action is needed from the user.
+- Users can access the profile detail view by appending the profile ID to the `/profiles/` URL (e.g., `/profiles/1/`). If authorized (i.e., if the `is_owner` field is `true`), users can edit their own profiles.
+- Each user’s profile displays their bio, profile avatar, the total number of posts (`posts_count`), the number of users they are following (`following_count`), and their total number of followers (`followers_count`).
+- Backend filtering is implemented to allow users to:
+  - Filter user profiles by those that are following the current user.
+  - Filter user profiles by those that the current user is following, enabling the display of the most popular profiles on the front-end.
+- *As a logged-in user*, I want to edit my profile details so that I can keep my information up to date. (User Story#34)
+- *As a logged-in user* (profile owner), I want to update my username and password so that I can change my display name and maintain the security of my profile. (User Story#35)
+- *As a user*, I want to have a default profile image so that I don’t need to upload my own immediately. (User Story#37)
+  - **Endpoint:** `/profiles/<int:pk>/`
+  - **Methods Used:**
+    - `GET`: Retrieves the details of a specific user profile by ID.
+    - `PUT`: Edits/updates the profile.
+
+![Profiles_DetailView](documentation/docs_images/api_profiles_detail_view.png)
+
+- If the user has not uploaded a profile picture, a default profile image is assigned to the image field. This ensures that every profile has a visual identifier, even without a custom avatar.

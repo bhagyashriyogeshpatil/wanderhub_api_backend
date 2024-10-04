@@ -34,7 +34,8 @@ The project is developed as a Portfolio Project 5 (Advanced Front End / React) f
     - [Saved Posts](#saved_posts)
     - [Comments](#comments)
     - [Comment Reactions](#comment_reactions)
-
+- [The Skeleton Plane](#the-skeleton-plane)
+  - [Database Design](#database-design)
 
 ---
 
@@ -409,5 +410,56 @@ All features have been implemented with user stories in mind.  For a detailed ov
     - `GET`: Retrieves details of specific comment reactions.
     - `DELETE`: Removes a specific reaction from a comment.
 - This feature encourages community engagement by allowing users to express their support for comments they find valuable, enhancing the interactive experience on the platform.
+
+*<span style="color: blue;">[Back to Content](#table-of-contents)</span>* 
+
+
+## The Skeleton Plane
+
+### Database Design
+
+The Entity-Relationship Diagram (ERD) provides a visual representation of the database's structure. It helps in planning and illustrating the SQL tables and the relationships between them. The ERD is an essential part of the database design that shows the entities, their attributes, and the types of relationships among the entities.
+
+The ER diagram was created with [SmartDraw](https://www.smartdraw.com/entity-relationship-diagram/)
+to show how the models in the app are structured and related.
+
+![ERD](documentation/docs_images/erd-wander-hub.png)
+
+- The database design for WanderHub is built around the User model, which connects users to various features like posts, comments, likes, follows, and saved posts. Here’s a simple breakdown of how the User model interacts with other models:
+
+**User Model Relationships:**
+
+- **Profile:**
+  - Each user has one profile, storing their name, bio, and profile picture.      
+  - This is a *One-to-One (1:1)* relationship.
+
+- **Post:**
+  - Users can create multiple posts. Each post stores information like the title, content, images, place, and region. 
+  - This is a *One-to-Many (1:M)* relationship.
+
+- **Comment:**
+  - Users can comment on posts. Each comment is linked to both a user and a post. 
+  - This is a *One-to-Many (1:M)* relationship.
+
+- **Follower:**
+  - Users can follow each other. 
+  - This is a *Many-to-Many (M:M)* relationship, where each user can follow and be followed by others.
+
+- **Like:**
+  - Users can like posts. Each user can only like a post once. 
+  - This creates a *One-to-Many (1:M)* relationship.
+
+- **SavedPost:**
+  - Users can save posts. Each user can only save a post once. 
+  - This is a *One-to-Many (1:M)* relationship.
+
+- **CommentReaction:**
+  - Users can give a thumbs-up reaction to comments.
+  - Each user can do this only once per comment, creating a *One-to-Many (1:M)* relationship.
+
+- Users can create posts and comments, follow other users, like and save posts, and react to comments.
+- Posts, comments, likes, and reactions are linked to the user who performed the action through foreign keys.
+- The `unique_together` constraint ensures that actions like saving or liking a post can only be done once per user.
+- A profile is automatically created for each user when they register, using Django signals.
 
 *<span style="color: blue;">[Back to Content](#table-of-contents)</span>* 

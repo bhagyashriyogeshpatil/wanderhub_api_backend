@@ -45,6 +45,12 @@ The project is developed as a Portfolio Project 5 (Advanced Front End / React) f
   - [Automated Testing](#automated-testing)
     - [Unit Testing](#unit-testing)
 - [Bug Overview](#bug-overview)
+- [Deployment](#deployment)
+  - [Version Control](#version-control)
+  - [Deploying to Heroku](#deploying-to-heroku)
+  - [How to Fork](#how-to-fork)
+  - [How to Clone](#how-to-clone)
+
 ---
 
 ## Introduction
@@ -557,5 +563,152 @@ All the minor issues were fixed during development. No bugs are present in the d
 
 *<span style="color: blue;">[Back to Content](#table-of-contents)</span>* 
 
+## Deployment
+
+### Version Control
+- The API was developed using the CI Gitpod template.
+- The following git commands were used throughout development to push code to the remote repository:
+
+  - `git add .` - This command was used to add all modified files to the staging area before committing.
+  - `git commit -m "commit message"` - This command was used to commit the staged changes to the local repository.
+  - `git push` - This command was used to push the committed changes to the remote repository on GitHub.
+
+*<span style="color: blue;">[Back to Content](#table-of-contents)</span>* 
+
+### Deploying to Heroku
+
+#### **Prerequisites**
+- Ensure you have a Heroku account. If not, sign up at [Heroku](https://id.heroku.com/login).
+- Ensure that your project is committed and pushed to a GitHub repository.
+- Create a new PostgreSQL database instance using [Code Institute's PostgreSQL service](https://dbs.ci-dbs.net/).
+
+#### **Steps to Deploy**
+  - **1. Create a New Heroku App**
+    - Log into your Heroku account and go to the **Dashboard**.
+    - Click the New button and select **Create new app**.
+    - Give your app a unique name and choose the region (EU or USA) closest to you.
+    - Once done, click **Create app**.
+  - **2. Configure the PostgreSQL Database**
+    - Navigate to the **Settings** tab in Heroku.
+    - In the **Config Vars** section, click Reveal Config Vars and add the following variable:
+      - `DATABASE_URL`: Copy your PostgreSQL database URL (received from Code Institute).
+    - Leave this tab open. You will come back to add more variables later. 
+  - **3. Project Preparation in Your IDE**
+    - **Install Required Packages:** Open your terminal and run the following commands to install necessary dependencies:
+      ```bash
+        pip3 install dj_database_url==0.5.0 psycopg2
+        pip3 install gunicorn django-cors-headers
+      ```
+    - **Update settings.py:**
+      - Import dj_database_url in settings.py:
+      ```python
+        import dj_database_url
+      ```
+      - Update the DATABASES section to:
+      ```python
+      if 'DEV' in os.environ:
+          DATABASES = {
+              'default': {
+                  'ENGINE': 'django.db.backends.sqlite3',
+                  'NAME': BASE_DIR / 'db.sqlite3',
+              }
+          }
+      else:
+          DATABASES = {
+              'default': dj_database_url.parse(os.environ.get("DATABASE_URL"))
+          }
+      ```
+    - **Create a Superuser:**
+      - Run the following commands in your terminal to migrate the database and create a superuser:
+      ```bash
+      python3 manage.py migrate
+      python3 manage.py createsuperuser
+      ```
+    - **Procfile Setup:**
+      - In the root of your project, create a Procfile (no file extension) with:
+      ```bash
+      release: python manage.py makemigrations && python manage.py migrate
+      web: gunicorn <your_project_name>.wsgi
+      ```
+      - Replace <your_project_name> with your actual project name.
+    - **Configure settings.py for Heroku:**
+      - Set `ALLOWED_HOSTS` to include your Heroku app URL:
+      ```python
+      ALLOWED_HOSTS = ['localhost', '<your_app_name>.herokuapp.com']
+      ```
+      - Add `corsheaders` to `INSTALLED_APPS` and its middleware:
+      ```python
+      INSTALLED_APPS = [
+          ...
+          'corsheaders',
+          ...
+      ]
+
+      MIDDLEWARE = [
+          'corsheaders.middleware.CorsMiddleware',
+          ...
+      ]
+      ```
+    - **Add the CORS settings:**
+      ```python
+      if 'CLIENT_ORIGIN' in os.environ:
+          CORS_ALLOWED_ORIGINS = [os.environ.get('CLIENT_ORIGIN')]
+      else:
+          CORS_ALLOWED_ORIGIN_REGEXES = [r"^https://.*\.codeinstitute-ide\.net$",]
+
+      CORS_ALLOW_CREDENTIALS = True
+      ```
+    - **Commit and Push Changes to GitHub**
+      ```bash
+      git add .
+      git commit -m "Configure project for Heroku deployment"
+      git push
+      ```
+  - **4. Configuring Environment Variables on Heroku**
+    - Navigate to your Heroku app’s **Settings** tab and click **Reveal Config Vars**.
+    - Add the following configuration variables:
+      - `DATABASE_URL`: Your PostgreSQL URL.
+      - `SECRET_KEY`: A secure, random string (do not use the one in settings.py).
+      - `CLOUDINARY_URL`: Your Cloudinary URL (if using Cloudinary for image storage).
+      - `ALLOWED_HOST`: Your app’s Heroku URL.
+      - `CLIENT_ORIGIN`: The Heroku URL of the frontend that will be making requests to this API.
+      - `CLIENT_ORIGIN_DEV`: The local URL of the frontend used for development.
+      - `DISABLE_COLLECTSTATIC`: set to '1'
+  - **5. Deploy to Heroku**
+    - Go to the **Deploy** tab in Heroku, select **GitHub** under **Deployment Method**, and connect your repository.
+    - Click **Deploy Branch** to manually deploy your code.
+    - Once deployed, click **Open app** to see if it's working.
+
+*<span style="color: blue;">[Back to Content](#table-of-contents)</span>* 
+
+### How to Fork
+Most commonly, forks are used to either propose changes to someone else's project or to use someone else's project as a starting point for your own idea. In order to protect the main branch while you work on something new, essential when working as part of a team or when you want to experiment with a new feature, you will need to fork a branch.
+- Log in (or sign up) to Github.
+- Go to the selected repository. 
+- Click the Fork button in the top right corner and select create a fork.
+- One can change the name of the fork and add description
+- Choose to copy only the main branch or all branches to the new fork.
+- Click Create a Fork. A repository should appear in your GitHub
+
+*<span style="color: blue;">[Back to Content](#table-of-contents)</span>* 
+
+### How to Clone
+Cloning a GitHub repository creates a local copy on your machine, allowing you to sync between the two locations. Here are the steps:
+- Log in (or sign up) to GitHub.
+- Navigate to the GitHub Repository you want to clone to use locally.
+- Click on the code button
+- Select whether you would like to clone with HTTPS, SSH or GitHub CLI and copy repository link to the clipboard.
+- Open the terminal in your code editor of choice (git must be installed for the nextcoming steps)
+- Change the current working directory to the location you want to use for the cloned directory.
+- Type 'git clone' into the terminal and then paste the link you copied previously. Press enter.
+- If you are working in VSCode, create a virtual environment with command: `python3 -m venv .venv` 
+- Agree to select as workspace folder. 
+- Move to the virtual environment with command: `source .venv/bin/activate`
+- Import all dependencies with command: `pip3 install -r requirements.txt`
+- Create an 'env.py' file in the main directory.
+- Enter key data, such as: SECRET_KEY, CLIENT_ORIGIN_DEV, CLOUDINARY_URL, DATABASE_URL and ['DEV'] = '1'
+- Check that both the virtual environment and env.py are named in the .gitignore file.
+- Check it's all working by running the server, use command: `python3 manage.py runserver`
+ </details>
 
 *<span style="color: blue;">[Back to Content](#table-of-contents)</span>* 

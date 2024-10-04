@@ -480,3 +480,29 @@ to show how the models in the app are structured and related.
 ![python_validation](documentation/docs_images/python_validation_result.png)
 
 *<span style="color: blue;">[Back to Content](#table-of-contents)</span>* 
+
+### Manual Testing
+
+#### Functional Testing
+All functions have been manually tested to ensure they work as intended for authorized users only. This was done throughout the entire development process.
+
+#### Authorization Testing
+Testing was done to ensure that unauthorized users cannot access any functions. This was done throughout the entire development process.
+
+You can find detailed testing of the full stack application in the [FRONT-END REPO](https://github.com/bhagyashriyogeshpatil/wanderhub-frontend)
+
+*<span style="color: blue;">[Back to Content](#table-of-contents)</span>* 
+
+### Automated Testing
+
+#### Unit Testing
+Unit tests have been created and run on the Wander Hub API to check the basic CRUD functionality and user permissions for the Post and Profile models.
+
+- You can find the test files here:
+  - [POST Tests](https://github.com/bhagyashriyogeshpatil/wanderhub_api_backend/blob/main/posts/tests.py)
+  - [PROFILE Tests](https://github.com/bhagyashriyogeshpatil/wanderhub_api_backend/blob/main/profiles/tests.py)
+- The unit tests can be executed by running the command `python manage.py test`
+
+![python_unit_tests](documentation/docs_images/python_unit_tests_result.png)
+
+*<span style="color: blue;">[Back to Content](#table-of-contents)</span>* 

@@ -50,7 +50,8 @@ The project is developed as a Portfolio Project 5 (Advanced Front End / React) f
   - [Deploying to Heroku](#deploying-to-heroku)
   - [How to Fork](#how-to-fork)
   - [How to Clone](#how-to-clone)
-
+- [Technologies Used](#technologies-used)
+- [Credits and Acknowledgements](#credits-and-acknowledgements)
 ---
 
 ## Introduction
@@ -97,7 +98,7 @@ This approach ensures the platform is built with the user’s needs in mind.
 *<span style="color: blue;">[Back to Content](#table-of-contents)</span>* 
 
 ### Skeleton
-The design is planned using wireframes and ERDs that show how the database is organized:
+The design is planned using wireframes and ERD that show how the database is organized:
 - **Wireframes:** Visual sketches of important pages, like the homepage and user profiles, were created to ensure the layout is clear and easy to navigate.
 - **Entity-Relationship Diagram (ERD):** These diagram map out how data is structured, showing how users, posts, comments, and followers relate to each other. This ensures everything works smoothly behind the scenes.
 
@@ -545,9 +546,9 @@ Unit tests have been created and run on the Wander Hub API to check the basic CR
     `ALLOWED_HOSTS = ['8000-bhagyashriy-wanderhubap-zda90yavtn9.ws.codeinstitute-ide.net',
                 'localhost', 'wanderhub-api-backend-8af792a9ebf9.herokuapp.com']`
 
-- **4.** Uncaught Runtime Error in SignUpForm Component
+- **4.** Uncaught Runtime Error in SignUpForm Component 
 
-  - **Issue:** When using the SignUpForm component, an error occurs:
+  - **Issue:** When using the SignUpForm component in the frontend, a runtime error occurred:
   ```javascript
   Cannot read properties of undefined (reading 'username') 
   TypeError: Cannot read properties of undefined (reading 'username')
@@ -556,8 +557,10 @@ Unit tests have been created and run on the Wander Hub API to check the basic CR
 
   - **Fix:** I updated the CORS configuration in the API's `settings.py` file. The new code is:
   ```python 
-  if 'CLIENT_ORIGIN_DEV' in os.environ: CORS_ALLOWED_ORIGIN_REGEXES = [r"^https://.*\.codeinstitute-ide\.net$",]
+  if 'CLIENT_ORIGIN_DEV' in os.environ:
+      CORS_ALLOWED_ORIGIN_REGEXES = [r"^https://.*\.codeinstitute-ide\.net$",]
   ```
+  - This change allows the frontend to connect properly with the backend, fixing the error in the SignUpForm component.
 
 All the minor issues were fixed during development. No bugs are present in the deployed API link. The link is working as expected.
 
@@ -712,3 +715,66 @@ Cloning a GitHub repository creates a local copy on your machine, allowing you t
  </details>
 
 *<span style="color: blue;">[Back to Content](#table-of-contents)</span>* 
+
+## Technologies Used
+
+### Language
+- [Python](https://www.python.org/) - serves as the back-end programming language.
+
+### Frameworks and Libraries
+- [asgiref==3.8.1](https://pypi.org/project/asgiref/) - A collection of tools for working with ASGI (Asynchronous Server Gateway Interface).
+- [cloudinary==1.41.0](https://pypi.org/project/cloudinary/) - A cloud service for storing, managing, and delivering images and videos.
+- [dj-database-url==0.5.0](https://pypi.org/project/dj-database-url/0.5.0/) Django utility allows to utilize DATABASE_URL environment variable to configure Django application.
+- [dj-rest-auth==2.1.9](https://dj-rest-auth.readthedocs.io/en/latest/installation.html) - An authentication solution for Django Rest Framework with easy-to-use endpoints.
+- [Django==4.2](https://docs.djangoproject.com/en/4.2/) - Django is a high-level Python web framework that encourages rapid development and promotes clean, pragmatic design.
+- [django-allauth==0.50.0](https://docs.allauth.org/en/latest/) - An integrated set of applications for authentication, registration, and account management.
+- [django-cloudinary-storage==0.3.0](https://pypi.org/project/django-cloudinary-storage/0.3.0/) - A Django storage backend for Cloudinary.
+- [django-cors-headers==4.4.0](https://pypi.org/project/django-cors-headers/) - A Django app for handling Cross-Origin Resource Sharing (CORS).
+- [django-filter==24.3](https://django-filter.readthedocs.io/en/latest/) - A reusable Django application for allowing users to filter querysets dynamically.
+- [djangorestframework==3.15.2](https://www.django-rest-framework.org/) - A powerful toolkit for building Web APIs in Django.
+- [djangorestframework-simplejwt==4.7.2](https://pypi.org/project/djangorestframework-simplejwt/4.7.2/) - A JSON Web Token authentication plugin for Django Rest Framework.
+- [gunicorn==23.0.0](https://pypi.org/project/gunicorn/23.0.0/) - A Python WSGI HTTP Server for UNIX, commonly used for deploying Django applications.
+- [oauthlib==3.2.2](https://pypi.org/project/oauthlib/3.2.2/) - A generic, spec-compliant implementation of the OAuth request-signing logic.
+- [Pillow==8.2.0](https://pypi.org/project/pillow/8.2.0/) - A Python Imaging Library that adds image processing capabilities to your Python interpreter.
+- [psycopg2==2.9.9](https://pypi.org/project/psycopg2/) - The most popular PostgreSQL database adapter for the Python programming language.
+- [PyJWT==2.9.0](https://pypi.org/project/PyJWT/) - A Python library for encoding and decoding JSON Web Tokens (JWT).
+- [python3-openid==3.2.0](https://pypi.org/project/python3-openid/) - A library that provides OpenID support.
+- [pytz==2024.2](https://pypi.org/project/pytz/2024.2/) - A world timezone definitions for Python.
+- [requests-oauthlib==2.0.0](https://pypi.org/project/requests-oauthlib/2.0.0/) - A simple OAuth1 and OAuth2 client built on top of the requests library. It provides first-class OAuth library support for Requests.
+- [sqlparse==0.5.1](https://pypi.org/project/sqlparse/0.5.1/) - A non-validating SQL parser for Python.
+
+### Tools and Services
+- [Am I Responsive?](http://ami.responsivedesign.is/) - To show the website image on a range of devices.
+- [Cloudinary](https://cloudinary.com/users/register_free) - A cloud service for storing, managing, and delivering images 
+- [Code Institute Python Linter](https://pep8ci.herokuapp.com/) - A tool to check Python code against some of the style conventions in [PEP8](https://peps.python.org/pep-0008/).
+- [Code Institute Template](https://github.com/Code-Institute-Org/ci-full-template) - provided me with a familiar base from which to build my project.
+- [Diffchecker](https://www.diffchecker.com/text-compare/) is used to check code snippets.
+- [Git](https://git-scm.com/) - Used for version control.
+- [Gitpod](https://gitpod.io) - Streamlines your development process by providing a pre-configured, cloud-based development environment that's instantly ready for coding.
+- [Github](https://github.com/) - Essential for version control, allowing you to track changes, collaborate with others (if applicable), and secure online code storage.
+- [Heroku](https://id.heroku.com/login) - A platform for deploying and hosting web applications.
+- [PEP8](https://peps.python.org/pep-0008/) - Style Guide for Python Code.
+- [Random key generator](https://acte.ltd/utils/randomkeygen) - A Heroku-compatible tool for generating random keys.
+- [SmartDraw](https://www.smartdraw.com/entity-relationship-diagram/) - A tool for designing database diagrams and visualizing database structures.
+
+### Database
+
+-  [PostgreSQL](https://dbs.ci-dbs.net/) - provided by the Code Institute, is employed as the database system for its robustness and compatibility with Django.
+
+*<span style="color: blue;">[Back to Content](#table-of-contents)</span>*  
+
+## Credits and Acknowledgements
+
+### Credits
+
+- The main code for this project is based on the "Django REST Framework" (drf-api) walkthrough tutorial by Code Institute, which served as the foundation. The project has been expanded with custom models and functionality to meet specific needs.
+- [Django REST Framework Documentation](https://www.django-rest-framework.org/) was referenced throughout the project to deepen understanding of various concepts.
+- The default post placeholder image was sourced from the "Moments" walkthrough project.
+- The database ER diagram was designed using [SmartDraw](https://www.smartdraw.com/entity-relationship-diagram/).
+
+### Acknowledgements
+- The Code Institute's "Django REST Framework" (drf-api) walkthrough project was referenced throughout the development process.
+- I am grateful to the Code Institute's Tutor support for solving all my doubts.
+- I appreciate my mentor, Jubril Akolade, for his invaluable guidance.
+
+*<span style="color: blue;">[Back to Content](#table-of-contents)</span>*   

@@ -3,9 +3,8 @@ from wanderhub_api_backend.permissions import IsOwnerOrReadOnly
 from .models import SavedPost
 from .serializers import SavedPostSerializer
 
+
 # Create your views here.
-
-
 class SavedPostList(generics.ListCreateAPIView):
     """
     List all saved posts, i.e., posts that users have saved.
@@ -17,7 +16,7 @@ class SavedPostList(generics.ListCreateAPIView):
 
     def perform_create(self, serializer):
         """
-        Save the new saved post relationship with 
+        Save the new saved post relationship with
         the current user as the owner.
         """
         serializer.save(owner=self.request.user)
@@ -25,7 +24,7 @@ class SavedPostList(generics.ListCreateAPIView):
 
 class SavedPostDetail(generics.RetrieveDestroyAPIView):
     """
-    Retrieve a saved post and 
+    Retrieve a saved post and
     allow the owner to delete (remove) it.
     """
     permission_classes = [IsOwnerOrReadOnly]

@@ -2,6 +2,7 @@ from django.db import IntegrityError
 from rest_framework import serializers
 from .models import CommentReaction
 
+
 class CommentReactionSerializer(serializers.ModelSerializer):
     """
     Serializer for the CommentReaction model.
@@ -18,7 +19,7 @@ class CommentReactionSerializer(serializers.ModelSerializer):
         """
         Create a new CommentReaction instance.
         This method checks for duplicate reactions to the same comment
-        by the same user. If a duplicate is found, it raises a 
+        by the same user. If a duplicate is found, it raises a
         validation error.
         """
         try:

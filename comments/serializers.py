@@ -16,7 +16,7 @@ class CommentSerializer(serializers.ModelSerializer):
     commentreaction_id = serializers.SerializerMethodField()
     commentreactions_count = serializers.ReadOnlyField()
     created_at = serializers.SerializerMethodField()
-    updated_at = serializers.SerializerMethodField() 
+    updated_at = serializers.SerializerMethodField()
 
     def get_is_owner(self, obj):
         request = self.context['request']
@@ -50,7 +50,7 @@ class CommentSerializer(serializers.ModelSerializer):
             'id', 'owner', 'is_owner', 'profile_id',
             'profile_image', 'post', 'created_at',
             'updated_at', 'content', 'commentreaction_id',
-            'commentreactions_count' 
+            'commentreactions_count'
         ]
 
 

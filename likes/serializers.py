@@ -19,7 +19,7 @@ class LikeSerializer(serializers.ModelSerializer):
         """
         Create a new Like instance.
         This method checks for duplicate likes by the same
-        user on a post. 
+        user on a post.
         If a duplicate is found, it raises a validation error.
         """
         try:

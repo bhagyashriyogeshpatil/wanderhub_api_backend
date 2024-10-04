@@ -11,7 +11,7 @@ from .serializers import PostSerializer
 class PostList(generics.ListCreateAPIView):
     """
     List posts or create a post if logged in
-    The perform_create method associates the post 
+    The perform_create method associates the post
     with the logged in user.
     """
     serializer_class = PostSerializer
@@ -19,7 +19,7 @@ class PostList(generics.ListCreateAPIView):
     queryset = Post.objects.annotate(
         likes_count=Count('likes', distinct=True),
         comments_count=Count('comment', distinct=True),
-        savedposts_count=Count('savedposts', distinct=True) 
+        savedposts_count=Count('savedposts', distinct=True)
     ).order_by('-created_at')
     filter_backends = [
         filters.OrderingFilter,

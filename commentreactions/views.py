@@ -3,6 +3,7 @@ from wanderhub_api_backend.permissions import IsOwnerOrReadOnly
 from .models import CommentReaction
 from .serializers import CommentReactionSerializer
 
+
 # Create your views here.
 class CommentReactionList(generics.ListCreateAPIView):
     """
@@ -16,7 +17,7 @@ class CommentReactionList(generics.ListCreateAPIView):
 
     def perform_create(self, serializer):
         """
-        Save the new comment reaction with 
+        Save the new comment reaction with
         the current user as the owner.
         """
         serializer.save(owner=self.request.user)
@@ -24,7 +25,7 @@ class CommentReactionList(generics.ListCreateAPIView):
 
 class CommentReactionDetail(generics.RetrieveDestroyAPIView):
     """
-    Retrieve a comment reaction and 
+    Retrieve a comment reaction and
     allow the owner to delete (remove) it.
     """
     permission_classes = [IsOwnerOrReadOnly]

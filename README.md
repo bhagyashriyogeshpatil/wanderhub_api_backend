@@ -463,3 +463,20 @@ to show how the models in the app are structured and related.
 - A profile is automatically created for each user when they register, using Django signals.
 
 *<span style="color: blue;">[Back to Content](#table-of-contents)</span>* 
+
+## Testing
+
+### Validator Testing
+
+#### Python Linting Validation
+- During testing, every Python file in this repository was checked with a linter to make sure it follows PEP8 standards.
+- The linter used was the [CI Python Linter](https://pep8ci.herokuapp.com/), and the following issues were corrected:
+    - Indentation errors
+    - Trailing whitespace
+    - Missing newlines or blank lines at the end of files
+    - Expected 2 blank lines, found 1
+- After running the linter, no known errors were present in any of the files. All files successfully passed the linting check with result as below:
+
+![python_validation](documentation/docs_images/python_validation_result.png)
+
+*<span style="color: blue;">[Back to Content](#table-of-contents)</span>* 

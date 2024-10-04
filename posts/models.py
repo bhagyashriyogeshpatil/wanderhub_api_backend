@@ -1,16 +1,15 @@
 from django.db import models
 from django.contrib.auth.models import User
 
+
 # Create your models here.
-
-
 class Post(models.Model):
     """
     Post model, related to 'owner', i.e. a User instance.
     It has a title, content, image, place, and region.
     The owner is the user who created the post.
     It records when the post was created and last updated.
-    Posts are sorted by the newest ones first. 
+    Posts are sorted by the newest ones first.
     The __str__ method shows the post's ID and title.
     """
     REGION_CHOICES = [

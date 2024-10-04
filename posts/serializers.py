@@ -69,14 +69,14 @@ class PostSerializer(serializers.ModelSerializer):
                 owner=user, post=obj
             ).first()
             return savedpost.id if savedpost else None
-        return None        
+        return None
 
     class Meta:
         model = Post
         fields = [
             'id', 'owner', 'is_owner', 'profile_id',
             'profile_image', 'created_at', 'updated_at',
-            'title', 'content', 'image', 'place', 
+            'title', 'content', 'image', 'place',
             'region', 'image_filter', 'like_id',
             'savedpost_id', 'likes_count', 'comments_count',
             'savedposts_count'

@@ -3,6 +3,7 @@ from .models import Profile
 from rest_framework import status
 from rest_framework.test import APITestCase
 
+
 # Create your tests here.
 class ProfileListViewTests(APITestCase):
     """
@@ -30,7 +31,7 @@ class ProfileListViewTests(APITestCase):
 
 class ProfileDetailViewTests(APITestCase):
     """
-    ProfileDetail view tests. 
+    ProfileDetail view tests.
     Getting profiles by valid and invalid IDs.
     Updating own profiles.
     Preventing updates to others' profiles.

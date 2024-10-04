@@ -2,6 +2,7 @@ from django.db import models
 from django.contrib.auth.models import User
 from posts.models import Post
 
+
 # Create your models here.
 class Like(models.Model):
     """
@@ -9,9 +10,9 @@ class Like(models.Model):
     'owner' is a User instance and 'post' is a Post instance.
 
     It keeps track of which user liked which post
-    and when the like was made. 
-    Likes are sorted by the newest first. 
-    A user can only like a post once. 
+    and when the like was made.
+    Likes are sorted by the newest first.
+    A user can only like a post once.
     'unique_together' makes sure a user can't like
     the same post twice.
     The __str__ method shows the user and the post they liked.
@@ -27,6 +28,6 @@ class Like(models.Model):
     class Meta:
         ordering = ['-created_at']
         unique_together = ['owner', 'post']
-        
+
     def __str__(self):
         return f'{self.owner} {self.post}'

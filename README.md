@@ -36,7 +36,15 @@ The project is developed as a Portfolio Project 5 (Advanced Front End / React) f
     - [Comment Reactions](#comment_reactions)
 - [The Skeleton Plane](#the-skeleton-plane)
   - [Database Design](#database-design)
-
+- [Testing](#testing)
+  - [Validator Testing](#validator-testing)
+    - [Python Linting Validation](#python-linting-validation)
+  - [Manual Testing](#manual-testing)
+    - [Functional Testing](#functional-testing)
+    - [Authorization Testing](#authorization-testing)
+  - [Automated Testing](#automated-testing)
+    - [Unit Testing](#unit-testing)
+- [Bug Overview](#bug-overview)
 ---
 
 ## Introduction
@@ -504,5 +512,50 @@ Unit tests have been created and run on the Wander Hub API to check the basic CR
 - The unit tests can be executed by running the command `python manage.py test`
 
 ![python_unit_tests](documentation/docs_images/python_unit_tests_result.png)
+
+*<span style="color: blue;">[Back to Content](#table-of-contents)</span>* 
+
+## Bug Overview
+
+### Solved Bugs
+
+- **1.** Cloudinary Image Field Not Updating
+
+  - **Issue:** The image field in the Profile model was not updating with the Cloudinary link, and the default image was not displaying correctly.
+  - **Fix:** Upgraded to Django 4.2 to resolve issues with the Cloudinary image field and ensure the default image is displayed properly.
+
+- **2.** Error H10 - App Crashed
+
+  - **Issue:** When deploying the API to Heroku, the app crashed with an H10 error. This happens because the Procfile was incorrectly referencing the project name.
+    `Error Code: H10 ("App Crashed")`
+  - **Fix:** The project directory name must match the one used in the Procfile. Update the Procfile to reflect the correct project name:
+     `web: gunicorn wanderhub_api_backend.wsgi`
+
+- **3.** "Bad Request (400)" Error
+
+  - **Issue:** When deploying the API to Heroku, the app encountered a "Bad Request (400)" error. This error is typically caused by an incorrect or missing configuration in the ALLOWED_HOSTS setting of Django’s settings.py.
+  - **Fix:** Add the exact Heroku app URL to the ALLOWED_HOSTS setting in settings.py
+
+    `ALLOWED_HOSTS = ['8000-bhagyashriy-wanderhubap-zda90yavtn9.ws.codeinstitute-ide.net',
+                'localhost', 'wanderhub-api-backend-8af792a9ebf9.herokuapp.com']`
+
+- **4.** Uncaught Runtime Error in SignUpForm Component
+
+  - **Issue:** When using the SignUpForm component, an error occurs:
+  ```javascript
+  Cannot read properties of undefined (reading 'username') 
+  TypeError: Cannot read properties of undefined (reading 'username')
+  ```
+  - This error happens because the `username` property of the `errors` state is being accessed when it is undefined.  
+
+  - **Fix:** I updated the CORS configuration in the API's `settings.py` file. The new code is:
+  ```python 
+  if 'CLIENT_ORIGIN_DEV' in os.environ: CORS_ALLOWED_ORIGIN_REGEXES = [r"^https://.*\.codeinstitute-ide\.net$",]
+  ```
+
+All the minor issues were fixed during development. No bugs are present in the deployed API link. The link is working as expected.
+
+*<span style="color: blue;">[Back to Content](#table-of-contents)</span>* 
+
 
 *<span style="color: blue;">[Back to Content](#table-of-contents)</span>* 

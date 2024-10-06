@@ -10,13 +10,10 @@ The project is developed as a Portfolio Project 5 (Advanced Front End / React) f
    - Link to the live API: [Wander Hub API](https://wanderhub-api-backend-8af792a9ebf9.herokuapp.com/)
    - Link to the live website: [Wander Hub Frontend](https://wanderhub-frontend-56da935583f2.herokuapp.com/)
    - Link to the Front-End Repository: [wanderhub-frontend](https://github.com/bhagyashriyogeshpatil/wanderhub-frontend)
+   
 ---
 # Table of Contents
 - [Introduction](#introduction)
-- [Agile Development Process](#agile-development-process)
-    - [Agile Planning](#agile-planning)
-      - [User Stories and Management](#user-stories-and-management)
-      - [Milestones Overview](#milestones-overview)
 - [User Experience Design](#user-experience-design)
   - [Strategy](#strategy)
   - [Site Goals](#site-goals)
@@ -24,6 +21,10 @@ The project is developed as a Portfolio Project 5 (Advanced Front End / React) f
   - [Structure](#structure)
   - [Skeleton](#skeleton)
   - [Surface](#surface)
+- [Agile Development Process](#agile-development-process)
+    - [Agile Planning](#agile-planning)
+      - [User Stories and Management](#user-stories-and-management)
+      - [Milestones Overview](#milestones-overview)
 - [The Structure Plane](#the-structure-plane)
   - [Features](#features)
     - [Homepage](#homepage)
@@ -500,6 +501,34 @@ to show how the models in the app are structured and related.
 
 #### Functional Testing
 All functions have been manually tested to ensure they work as intended for authorized users only. This was done throughout the entire development process.
+
+| Feature	| Action	| Expected Result	| Actual Result |
+|---|---|---|---|
+|Home Page|Access the homepage URL: `/`|Displays a welcome message|Passed|
+|Posts|Send `GET` request to `/posts/`|Retrieves a list of all posts with appropriate fields (e.g., is_owner, likes_count)|Passed|
+||Send `POST` request to `/posts/` with valid post data|Successfully creates a new post and returns the created post details|Passed|
+||Send `GET` request to `/posts/<int:pk>/`|Retrieves details of the specified post, including likes, comments, and saved posts|Passed|
+||Send `PUT` request to `/posts/<int:pk>/` with updated data|Successfully updates the specified post and returns the updated post details|Passed|
+||Send `DELETE` request to `/posts/<int:pk>/`|Successfully deletes the specified post|Passed|
+|Profiles|Send `GET` request to `/profiles/`|Retrieves a list of user profiles with appropriate fields (e.g., `posts_count`)|Passed|
+||Send `GET` request to `/profiles/<int:pk>/`|Retrieves details of the specified user profile, including bio and statistics|Passed|
+||Send `PUT` request to `/profiles/<int:pk>/` with updated profile data|Successfully updates the specified user profile and returns the updated details|Passed|
+|Likes|Send `GET` request to `/likes/`|Retrieves a list of likes on posts|Passed|
+||Send `POST` request to `/likes/` with valid data|Successfully likes a post and returns the like details|Passed|
+||Send `DELETE` request to `/likes/<int:pk>/`|Successfully removes the like from the specified post|Passed|
+|Followers|Send `GET` request to `/followers/`|Retrieves a list of followers for the logged-in user|Passed|
+||Send `POST` request to `/followers/` with a valid user ID to follow|Successfully follows the specified user|Passed|
+||Send `DELETE` request to `/followers/<int:pk>/`|Successfully unfollows the specified user|Passed|
+|Saved Posts|Send `GET` request to `/savedposts/`|Retrieves a list of saved posts for the logged-in user|Passed|
+||Send `POST` request to `/savedposts/` with valid data|Successfully saves a post and returns the saved post details|Passed|
+||Send `DELETE` request to `/savedposts/<int:pk>/`|Successfully removes the saved post|Passed|
+|Comments|Send `GET` request to `/comments/`|Retrieves a list of comments|Passed|
+||Send `POST` request to `/comments/` with valid data|Successfully creates a new comment and returns the comment details|Passed|
+||Send `PUT` request to `/comments/<int:pk>/` with updated data|Successfully updates the specified comment and returns the updated details|Passed|
+||Send `DELETE` request to `/comments/<int:pk>/`|Successfully deletes the specified comment|Passed|
+|Comment Reactions|Send `GET` request to `/commentreactions/`|Retrieves a list of comment reactions|Passed|
+||Send `POST` request to `/commentreactions/` with valid data|Successfully reacts to a comment and returns the reaction details|Passed|
+||Send `DELETE` request to `/commentreactions/<int:pk>/`|Successfully removes the reaction from the specified comment|Passed|
 
 #### Authorization Testing
 Testing was done to ensure that unauthorized users cannot access any functions. This was done throughout the entire development process.
